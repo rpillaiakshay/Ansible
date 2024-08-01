@@ -1,0 +1,10 @@
+  - name: Create a user
+    hosts: all
+    tasks:
+      - name: Create a user
+        user:
+          name: devops
+          shell: /bin/bash
+          groups: wheel
+          comment: Hi
+

@@ -1,0 +1,16 @@
+  - name:  Install & enable PostgreSQL ,Nginx & Httpd
+    hosts: target1
+    tasks:
+      - name:  Install PostgreSQL
+        package:
+          name: postgresql-server
+          state: present
+      - name: Install httpd
+        package:
+          name: httpd
+          state: present
+    hosts: target2
+    tasks:      
+      - yum:
+        name: nginx
+        state: present

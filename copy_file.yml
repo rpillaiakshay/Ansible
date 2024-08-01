@@ -1,0 +1,7 @@
+  - name: Copying a file
+    hosts: all
+    tasks:
+      - name: Copy a file
+        copy: 
+          src: /home/akshay/ansible/copyfile
+          dest: /home/akshay/

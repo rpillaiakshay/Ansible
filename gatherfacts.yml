@@ -1,0 +1,5 @@
+  - name: Gathering facts regarding all hosts
+    hosts: all
+    tasks:
+      - name: Gather facts
+        gather_facts:

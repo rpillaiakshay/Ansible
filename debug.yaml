@@ -1,0 +1,14 @@
+  - name: Debug
+    hosts: target1
+    tasks:
+      - name: Fetch details
+        debug:
+          msg: |
+            "Host Name is {{ansible_hostname}}"
+            "IP address is {{ansible_host}}"
+            "OS is {{ansible_distribution}}"
+            "Core is {{ansible_processor_cores}}"
+            "Architecture is {{ansible_architecture}}"
+            "IP Is (Using default method) {{ansible_all_ipv4_addresses}}"
+
+        

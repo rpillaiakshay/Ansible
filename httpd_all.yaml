@@ -1,0 +1,30 @@
+  - name: Httpd Operations
+    hosts: all
+    tasks:
+      - name: Installing Httpd
+        tags:
+          - in
+        dnf:
+          name: httpd
+          state: present
+      - name: Enabling & starting Httpd
+        tags:
+          -start
+        service:
+          name: httpd
+          enabled: yes
+          state: started
+      - name: Stop Httpd
+        tags:
+          - stop
+          - halt
+        service:
+          name: httpd
+          enabled: no
+          state: stopped
+      - name: Remove Httpd
+        tags:
+          - remove
+        dnf:
+          name: httpd
+          state: absent 

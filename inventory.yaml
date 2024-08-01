@@ -1,0 +1,29 @@
+all:
+  hosts:
+    target1:
+      ansible_user: akshay
+      ansible_host: 172.16.70.22
+      ansible_become: yes
+      ansible_become_method: sudo
+      ansible_become_pass: asd123.
+      ansible_ssh_pass: asd123.
+    target2:
+      ansible_user: akshay
+      ansible_host: 172.16.70.23
+      ansible_become: yes
+      ansible_become_method: sudo
+      ansible_become_pass: asd123.
+      ansible_ssh_pass: asd123.
+  children:
+    abc1:
+      hosts:
+        target1:
+    abc2:
+      hosts:
+        target2:
+    abc3:
+      children:
+        abc1:
+        abc2:
+
+

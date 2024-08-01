@@ -1,0 +1,11 @@
+  - name: Create a directory & file
+    hosts: all
+    tasks:
+      - name: Create a directory
+        file:
+          state: directory
+          path: /home/akshay/student
+      - name: Create a file
+        file:
+          state: touch
+          path: /home/akshay/student/Student 

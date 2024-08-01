@@ -1,0 +1,7 @@
+  - name: Delete a user
+    hosts: all
+    tasks:
+      - name: Deleting a user
+        user:
+          name: devops
+          state: absent

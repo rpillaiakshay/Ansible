@@ -1,0 +1,33 @@
+  - name: mariadb setup
+    hosts: all
+    tasks:
+      - name: installing
+        package:
+          name: mariadb-server
+          state: present
+      - name: starting
+        service:
+          name: mariadb
+          enabled: yes
+          state: started
+      - name: Installing PyMySQL
+        package:
+          name: python3-PyMySQL
+          state: present
+      - name: database creation
+        mysql_db:
+          name: Database01
+          state: present
+          login_unix_socket: /var/lib/mysql/mysql.sock
+      - name: Community module
+        community.mysql.mysql_db:
+          name: DatabaseC02
+          state: present
+          login_unix_socket: /var/lib/mysql/mysql.sock
+      - name: Community user creation
+        community.mysql.mysql_user:
+          name: ARP
+          password: asd123..
+          priv: '*.*:ALL'
+          state: present
+          login_unix_socket: /var/lib/mysql/mysql.sock

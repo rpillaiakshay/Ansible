@@ -1,0 +1,11 @@
+  - name: Execute the shell cript on target machines
+    hosts: all
+    tasks:
+      - name: Copy the shell script to target machine
+        copy:
+          src: /home/akshay/ansible/execute.sh
+          dest: /home/akshay/execute.sh
+          mode: '777'
+      - name: Execute the shell script
+        shell: /home/akshay/execute.sh
+

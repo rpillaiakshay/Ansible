@@ -1,0 +1,13 @@
+  - name: Mysql installing, starting & enabling
+    hosts: all
+    tasks:
+      - name: mysql starting
+        dnf:
+          name: mysql-server
+          state: present
+      - name: mysql starting & enabling
+        service:
+          name: mysqld
+          enabled: yes
+          state: started
+

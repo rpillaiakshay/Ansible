@@ -1,0 +1,10 @@
+  - name: Mysql disabling & stopping
+    hosts: all
+    tasks:
+      - name: mysql stopping and disabling
+        service:
+          name: mysqld
+          enabled: no
+          state: stopped
+
+

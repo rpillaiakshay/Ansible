@@ -1,0 +1,5 @@
+  - name: Change the permission
+    hosts: all
+    tasks:
+      - name: Change the permission
+        command: chmod 644 /home/akshay/student/Student

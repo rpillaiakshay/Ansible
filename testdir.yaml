@@ -1,0 +1,7 @@
+  - name: creating a directory
+    hosts: all
+    tasks:
+      - name: Creating a directory
+        file:
+          path: /tmp/testdir
+          state: directory

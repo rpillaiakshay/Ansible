@@ -1,0 +1,12 @@
+  - name: Installation of httpd
+    hosts: all
+    tasks:
+      - name: Installation
+        package:
+          name: httpd
+          state: present
+      - name: Enabling and Starting
+        systemd:
+          name: httpd
+          enabled: yes
+          state: started  

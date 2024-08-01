@@ -1,0 +1,7 @@
+  - name: Delete a file
+    hosts: all
+    tasks:
+      - name: Delete a file
+        file:
+          path: /home/akshay/copyfile
+          state: absent

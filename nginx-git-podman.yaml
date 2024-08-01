@@ -1,0 +1,10 @@
+  - name: Installing nginx,docker(podman) & git
+    hosts: all
+    tasks:
+      - name: Install nginx, podman & git
+        package:
+          name:
+          - nginx-1.20.1
+          - git
+          - podman
+          state: present

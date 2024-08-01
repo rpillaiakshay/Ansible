@@ -1,0 +1,5 @@
+  - name: Basic command
+    hosts: all
+    tasks:
+      - name: directory creation
+        command: mkdir Hello

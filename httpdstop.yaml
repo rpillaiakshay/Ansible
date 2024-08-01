@@ -1,0 +1,8 @@
+  - name: Stop httpd
+    hosts: all
+    tasks:
+      - name: Stopping
+        service:
+          name: httpd
+          enabled: no
+          state: stopped
