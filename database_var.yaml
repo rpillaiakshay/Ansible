@@ -1,0 +1,48 @@
+  - name: Variable testing
+    hosts: all
+    vars:
+      dbname: Data
+      dbuser: Ajoy
+      dbpass: abcd
+    tasks:
+      - name: Installing Mariadb
+        dnf:
+          name: mariadb-server
+          state: present
+      - name: Activating Mariadb
+        service:
+          name: mariadb
+          enabled: yes
+          state: started
+      - name: Installing PyMySQL
+        dnf:
+          name: python3-PyMySQL
+          state: present
+      - name: Database creation
+        mysql_db:
+          name: Database001
+          login_unix_socket: /var/lib/mysql/mysql.sock
+      - name: Community module
+        community.mysql.mysql_db:
+          name: "{{dbname}}"
+          state: present
+          login_unix_socket: /var/lib/mysql/mysql.sock
+        register: out
+      - name: Community module creation
+        community.mysql.mysql_user:
+          name: "{{dbuser}}"
+          host: "%"
+          priv: "*.*:ALL"
+          password: "{{dbpass}}"
+          state: present
+          login_unix_socket: /var/lib/mysql/mysql.sock
+      - name: Message Displaying
+        debug:
+          msg: |
+            "User: {{dbuser}}"
+            "DB_Name : {{dbname}}"
+            "Password: {{dbpass}}"
+      - name: Variable 
+        debug:
+          var:
+            out
