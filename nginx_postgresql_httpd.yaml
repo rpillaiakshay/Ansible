@@ -12,5 +12,9 @@
     hosts: target2
     tasks:      
       - yum:
-        name: nginx
-        state: present
+          name: nginx
+          state: present
+        register: reg
+      - debug:
+          var:
+            reg   

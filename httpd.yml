@@ -5,8 +5,12 @@
         package:
           name: httpd
           state: present
+        register: out
       - name: Enabling and Starting
         systemd:
           name: httpd
           enabled: yes
-          state: started  
+          state: started
+      - debug:
+          var:
+            out

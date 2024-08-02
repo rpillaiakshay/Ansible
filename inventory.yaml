@@ -2,18 +2,18 @@ all:
   hosts:
     target1:
       ansible_user: akshay
-      ansible_host: 172.16.70.22
+      ansible_host: 172.16.**.**
       ansible_become: yes
       ansible_become_method: sudo
-      ansible_become_pass: asd123.
-      ansible_ssh_pass: asd123.
+      ansible_become_pass: ****
+      ansible_ssh_pass: ****
     target2:
       ansible_user: akshay
-      ansible_host: 172.16.70.23
+      ansible_host: 172.16.**.**
       ansible_become: yes
       ansible_become_method: sudo
-      ansible_become_pass: asd123.
-      ansible_ssh_pass: asd123.
+      ansible_become_pass: ****.
+      ansible_ssh_pass: ****.
   children:
     abc1:
       hosts:
