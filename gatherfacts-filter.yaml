@@ -1,0 +1,10 @@
+  - name: To gather facts
+    hosts: target2
+    tasks:
+      - name: For gathering facts purpose
+        setup:
+          filter: "process*"
+        register: reg
+      - debug:
+          var:
+            reg

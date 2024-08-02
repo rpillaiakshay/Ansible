@@ -1,0 +1,33 @@
+  - name: HTTPD hosting
+    hosts: target1
+    tasks:
+      - name: httpd installing
+        dnf:
+          name: httpd
+          state: present
+      - name: httpd activating
+        service:
+          name: httpd
+          enabled: yes
+          state: started
+      - name: Checking status
+        command: sudo systemctl status httpd
+      - name: Copying template
+        copy:
+          src: /home/akshay/ansible/finexo-html/index.html
+          dest: /var/www/html/index.html
+      - name: Firewall
+        firewalld:
+          port: 80/tcp
+          state: enabled
+          permanent: true
+      - name: Restarting firewalld
+        service:
+          name: firewalld
+          state: restarted
+      - name: httpd restarting
+        service:
+          name: httpd
+          state: restarted
+
+            
