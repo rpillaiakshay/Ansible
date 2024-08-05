@@ -1,9 +1,9 @@
   - name: Variable testing
-    hosts: all
+    hosts: abc3
     vars:
-      dbname: Data
-      dbuser: Ajoy
-      dbpass: abcd
+      # dbname1: Data12
+      #dbuser1: Ajoy
+      #dbpass1: abcd
     tasks:
       - name: Installing Mariadb
         dnf:
@@ -24,24 +24,24 @@
           login_unix_socket: /var/lib/mysql/mysql.sock
       - name: Community module
         community.mysql.mysql_db:
-          name: "{{dbname}}"
+          name: "{{dbname1}}"
           state: present
           login_unix_socket: /var/lib/mysql/mysql.sock
         register: out
       - name: Community module creation
         community.mysql.mysql_user:
-          name: "{{dbuser}}"
+          name: "{{dbuser1}}"
           host: "%"
           priv: "*.*:ALL"
-          password: "{{dbpass}}"
+          password: "{{dbpass1}}"
           state: present
           login_unix_socket: /var/lib/mysql/mysql.sock
       - name: Message Displaying
         debug:
           msg: |
-            "User: {{dbuser}}"
-            "DB_Name : {{dbname}}"
-            "Password: {{dbpass}}"
+            "User: {{dbuser1}}"
+            "DB_Name : {{dbname1}}"
+            "Password: {{dbpass1}}"
       - name: Variable 
         debug:
           var:
