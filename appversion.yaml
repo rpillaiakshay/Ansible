@@ -1,0 +1,10 @@
+  - name: Create an app version
+    hosts: target1
+    vars:
+      app_version: "1.0"
+    tasks:
+      - name: Create app_version.txt with the version number
+        copy:
+         dest: /home/akshay/app_version.txt
+         content: "{{ app_version }}"
+
