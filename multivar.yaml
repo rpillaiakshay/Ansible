@@ -1,0 +1,45 @@
+  - name: Create multiple users, using vars
+    hosts: all
+    vars:
+      dbusers:
+        - AkshayR
+        - Ajin
+        - Amal
+      dbshells:
+        - /bin/bash
+        - /bin/zsh
+      dbgroups:
+        - wheel
+      dbcomment:
+        - Hi , AkshayR, Welcome!
+        - Hi, Ajin, Welcome!
+        - Hi, Amal, Welcome!
+    tasks:
+      - name: Create first user
+        user:
+          name: "{{dbusers[0]}}"
+          shell: "{{dbshells[0]}}"
+          groups: "{{dbgroups}}"
+          comment: "{{dbcomment[0]}}"
+        register: first    
+      - name: Create second user
+        user:
+          name: "{{dbusers[1]}}"
+          shell: "{{dbshells[1]}}"
+          groups: "{{dbgroups}}"
+          comment: "{{dbcomment[1]}}"
+        register: second
+      - name: Create third user
+        user:
+          name: "{{dbusers[2]}}"
+          shell: "{{dbshells[0]}}"
+          groups: "{{dbgroups}}"
+          comment: "{{dbcomment[2]}}"
+        register: third
+      - name: Displaying user creation results
+        debug:
+          msg:
+            - "First user: {{ first }}"
+            - "Second user: {{ second }}"
+            - "Third user: {{ third }}"
+
