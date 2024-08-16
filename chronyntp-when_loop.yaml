@@ -1,0 +1,29 @@
+---
+  - name: Installing and configuring time synchronization services
+    tags: every
+    hosts: all
+    tasks:
+      - name: Install chrony and ntp packages
+        package:
+          name: "{{ item.name }}"
+          state: present
+        tags: 
+          - complete
+          - package    
+        loop:
+          - { name: chrony, distro: AlmaLinux }
+          - { name: ntp, distro: Ubuntu }
+        when: ansible_distribution == item.distro
+      - name: Start and enable chronyd service on AlmaLinux
+        service:
+          name: "{{item.name}}"
+          enabled: yes
+          state: started
+        tags: 
+          - complete
+          - enable  
+        loop:
+          - { name: chronyd, distro: AlmaLinux }
+          - { name: ntpd, distro: Ubuntu }
+        when: ansible_distribution ==  item.distro
+...

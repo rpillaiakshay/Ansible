@@ -1,0 +1,17 @@
+---
+  - name: Intallation using loop
+    hosts: target1
+    tasks:
+      - name: Installing the package
+        package:
+          name: "{{item}}"
+          state: present
+        loop: 
+          - git
+          - zip
+          - unzip
+          - chrony
+          - vim
+        register: print
+      - debug: 
+          var: print    

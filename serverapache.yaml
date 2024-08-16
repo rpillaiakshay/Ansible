@@ -1,0 +1,56 @@
+  - name: HTTPD Website Hosting
+    hosts: target1
+    become: yes
+    tasks:
+      - name: Installing HTTPD
+        package:
+          name: httpd
+          state: present
+      - name: Activate HTTPD
+        service:
+          name: httpd
+          enabled: yes
+          state: started
+      - name: Allow HTTP Service in Firewall
+        firewalld:
+          service: http
+          permanent: yes
+          state: enabled
+        notify: handle
+      - name: Allow Port in Firewall
+        firewalld:
+          port: 80/tcp
+          permanent: yes
+          state: enabled
+        notify: handle
+      - name: meta
+        meta: flush_handlers
+      - name: Copying
+        copy:
+          src: site1
+          dest: /var/www/html/
+        tags: copy
+      - name: Copying template
+        template:
+          src: serverapache.j2
+          dest: /etc/httpd/conf.d/site1.conf
+        notify: handle
+      - name: meta
+        meta: flush_handlers
+      - name: SELINUX Status
+        selinux:
+          policy: targeted
+          state: permissive
+      - name: Testing
+        command: sudo apachectl -t
+    handlers:
+      - name: Restarting
+        service:
+          name: "{{item}}"
+          state: restarted
+        loop:
+          - firewalld
+          - httpd
+          - sshd
+        listen: handle
+

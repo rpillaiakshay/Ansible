@@ -1,0 +1,58 @@
+  - name: NGINX working
+    hosts: target2
+    become: yes
+    tasks:  
+      - name: Installing NGINX
+        package:
+          name: nginx
+          state: present
+      - name: Activate NGINX
+        service:
+          name: nginx
+          enabled: yes
+          state: started
+      - name: Managing Firewall
+        firewalld:
+          service: http
+          permanent: yes
+          state: enabled
+        notify: 
+          - Restarting
+      - name: Firewall
+        firewalld:
+          port: 80/tcp
+          state: enabled
+          permanent: yes
+        notify: Restarting
+      - name: Creating the directory
+        command: mkdir -p /var/www/html/site1
+      - name: Copying template
+        copy:
+          src: /home/akshay/ansible/site1
+          dest: /var/www/html
+        tags: copy
+      - name: Changing the ownership
+        file: 
+          path: /var/www/html/site1
+          owner: nginx
+          group: nginx
+      - name: Server Block
+        template:
+          src: serverblk.j2
+          dest: /etc/nginx/conf.d/site1.conf
+        notify: Restarting
+      - name: SELINUX Status
+        selinux:
+          policy: targeted
+          state: permissive
+      - name: Testing
+        command: sudo nginx -t 
+    handlers:
+      - name: Restarting
+        service:
+          name: "{{item}}"
+          state: restarted
+        loop: 
+          - firewalld
+          - nginx
+          - sshd

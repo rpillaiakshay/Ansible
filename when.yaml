@@ -1,0 +1,10 @@
+---
+  - name: Printing a message to check the functioning of 'when'
+    hosts: all
+    tasks:
+      - name: Checking the versioning
+        debug: 
+          msg: "This is a linux based system with versioning 9."
+        when:
+          ansible_distribution == "AlmaLinux" and ansible_distribution_version == "9.0"         
+          

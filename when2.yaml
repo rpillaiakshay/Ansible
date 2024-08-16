@@ -1,0 +1,14 @@
+  - name: Install chrony in alma and ubuntu
+    hosts: all
+    tasks:
+      - name: Install in Ubuntu
+        ansible.builtin.apt:
+          name: chrony
+          state: present
+        when: ansible_facts['os_family'] == "Debian"
+      - name: Install service apache2 in Alma Linux
+        ansible.builtin.dnf:
+          name: chrony
+          state: present
+        when: ansible_facts['distribution_major_version'] == "9"
+          #ansible_os_family == "RedHat"
