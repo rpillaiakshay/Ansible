@@ -1,0 +1,46 @@
+---
+# tasks file for role1
+- name: Installing HTTPD
+  package:
+    name: "{{service1}}"
+    state: present
+  when: ansible_distribution == "AlmaLinux"
+- name: Activate HTTPD
+  service:       
+    name: "{{service1}}"
+    enabled: yes
+    state: started
+  when: ansible_distribution == "AlmaLinux"
+- name: Allow HTTP Service in Firewall
+  firewalld:
+    service: "{{firewall}}"
+    permanent: yes
+    state: enabled
+  notify: handle
+- name: Allow Port in Firewall
+  firewalld:
+    port: 80/tcp
+    permanent: yes
+    state: enabled
+  notify: handle
+- name: Copying
+  copy:
+    src: site1
+    dest: /var/www/html/
+  tags: copy
+- name: Copying template
+  template:
+    src: serverapache.j2
+    dest: /etc/httpd/conf.d/site1.conf
+  notify: handle
+- name: SELINUX Status
+  selinux:
+    policy: targeted
+    state: permissive
+- name: Testing
+  command: sudo apachectl -t
+
+
+
+      
+

@@ -1,0 +1,4 @@
+---
+# vars file for role1
+service1: httpd
+firewall: http  

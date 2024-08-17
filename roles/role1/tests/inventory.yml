@@ -1,0 +1,20 @@
+all:
+  vars:
+    ansible_user: akshay
+    ansible_become: yes
+    ansible_become_method: sudo
+    ansible_become_pass: ****
+    ansible_ssh_pass: ****
+  hosts:
+    target1:
+      ansible_host: ***
+    target2:
+      ansible_host: ****
+    target3:
+      ansible_host: ****
+  children:
+    abc1:
+      hosts:
+        target1:
+        target3:
+

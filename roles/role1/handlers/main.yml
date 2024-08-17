@@ -1,0 +1,12 @@
+---
+# handlers file for role1
+- name: Restarting
+  service:
+    name: "{{item}}"
+    state: restarted
+  loop:
+  - firewalld
+  - httpd
+  - sshd
+  listen: handle
+

@@ -1,0 +1,4 @@
+  - name: Playbook
+    hosts: target1
+    roles:
+      - role1
